@@ -49,7 +49,7 @@ class LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 LoginButton(
-                  text: 'LOGIN WITH GOOGLE!!!',
+                  text: 'LOGIN WITH GOOGLE',
                   icon: FontAwesomeIcons.google,
                   color: Colors.green,
                   loginMethod: auth.googleSignIn,

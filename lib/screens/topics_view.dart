@@ -65,6 +65,7 @@ class TopicItem extends StatelessWidget {
           );
         },
         child: Card(
+          elevation: 4,
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             onTap: () {
@@ -78,8 +79,8 @@ class TopicItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  'assets/covers/${topic.img}',
+                Image.network(
+                  '${topic.img}',
                   fit: BoxFit.contain,
                 ),
                 Row(
@@ -92,7 +93,7 @@ class TopicItem extends StatelessWidget {
                           topic.title,
                           style: TextStyle(
                               height: 1.5, fontWeight: FontWeight.bold),
-                          overflow: TextOverflow.fade,
+                          overflow: TextOverflow.ellipsis,
                           softWrap: false,
                         ),
                       ),
@@ -143,7 +144,7 @@ class TopicScreen extends StatelessWidget {
                 child: fromHeroContext.widget,
               );
             },
-            child: Image.asset('assets/covers/${topic.img}',
+            child: Image.network('${topic.img}',
                 width: MediaQuery.of(context).size.width),
           ),
           Padding(

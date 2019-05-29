@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Topic> _topics = new List<Topic>();
   final TopicsScreen _topicScreen = new TopicsScreen();
   final ProfileScreen _profileScreen = new ProfileScreen();
+  final WorkoutsScreen _workoutsScreen = new WorkoutsScreen();
   final NotificationsView _notificationsView = new NotificationsView();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
@@ -55,16 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
         pageName = _topicScreen.pageTitle;
         return _topicScreen;
         break;
-
       case 1:
-        pageName = _profileScreen.pageTitle;
-        return _profileScreen;
+        pageName = _workoutsScreen.pageTitle;
+        return _workoutsScreen;
         break;
-
       case 2:
         pageName = _notificationsView.pageTitle;
         return _notificationsView;
         break;
+      case 3:
+        pageName = _profileScreen.pageTitle;
+        return _profileScreen;
+        break;
+
       default:
         return new Container(
           child: new Center(
@@ -85,7 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     return new Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text(pageName ?? ""),
       ),
       body: pageChooser(),
@@ -95,6 +100,14 @@ class _HomeScreenState extends State<HomeScreen> {
           new BottomNavigationBarItem(
             icon: new Icon(Icons.home),
             title: new Text('Home'),
+          ),
+        
+          new BottomNavigationBarItem(
+            icon: new Icon(Icons.fitness_center),
+            title: new Text('Workout'),
+          ),new BottomNavigationBarItem(
+            icon: new Icon(Icons.chat),
+            title: new Text('Chat'),
           ),
           new BottomNavigationBarItem(
             icon: (user == null || user.photoUrl == null)
@@ -115,11 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
             title: new Text('Me'),
-          ),
-          new BottomNavigationBarItem(
-            icon: new Icon(Icons.chat),
-            title: new Text('Chat'),
-          ),
+          )
         ],
         currentIndex: pageIndex,
         type: BottomNavigationBarType.fixed,

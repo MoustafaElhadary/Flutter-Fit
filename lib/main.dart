@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
           '/topics': (context) => TopicsScreen(),
           '/home': (context) => HomeScreen(),
           '/profile': (context) => ProfileScreen(),
-          '/about': (context) => AboutScreen(),
         },
 
         // Theme
