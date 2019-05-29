@@ -25,9 +25,6 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-  statusBarColor: Colors.blue, //or set color with: Color(0xFF0000FF)
-));
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(30),

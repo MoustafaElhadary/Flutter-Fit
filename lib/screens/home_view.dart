@@ -80,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     FirebaseUser user = Provider.of<FirebaseUser>(context);
 
     Global.topicsRef.getData().then((topics) {
@@ -91,9 +92,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(pageName ?? ""),
+        title: Text(pageName ?? "", style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                color: Colors.black),),
       ),
-      body: pageChooser(),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+         value: SystemUiOverlayStyle.light,                
+         child: pageChooser(),
+      ),
       drawer: new TopicDrawer(topics: _topics),
       bottomNavigationBar: new BottomNavigationBar(
         items: [
@@ -148,9 +155,6 @@ class TopicDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.blue, //or set color with: Color(0xFF0000FF)
-    ));
     return Drawer(
       child: ListView.separated(
           shrinkWrap: true,

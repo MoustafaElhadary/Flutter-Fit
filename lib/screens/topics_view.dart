@@ -119,9 +119,6 @@ class TopicScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.blue, //or set color with: Color(0xFF0000FF)
-    ));
     return Scaffold(
       appBar: AppBar(
           title: Text(
