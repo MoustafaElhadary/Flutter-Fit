@@ -81,13 +81,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
-    Global.topicsRef.getData().then((topics) {
-      setState(() {
-        _topics = topics;
-      });
-    });
+    // Global.topicsRef.getData().then((topics) {
+    //   setState(() {
+    //     _topics = topics;
+    //   });
+    // });
     return Scaffold(
-      drawer: CustomDrawer(topics: _topics),
+      // drawer: CustomDrawer(topics: _topics),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         brightness: Brightness.light,
@@ -102,37 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: pageChooser(),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: pageIndex == 0 ? Colors.black : Colors.grey,
-            ),
-            title: Container(height: 0.0),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.fitness_center,
-              color: pageIndex == 1 ? Colors.black : Colors.grey,
-            ),
-            title: Container(height: 0.0),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.chat,
-              color: pageIndex == 2 ? Colors.black : Colors.grey,
-            ),
-            title: Container(height: 0.0),
-          ),
-          BottomNavigationBarItem(
-            icon: createUserCircleInNavBar(
-              user: user,
-              currentPageIndex: pageIndex,
-              iconIndex: 3
-            ),
-            title: Container(height: 0.0),
-          )
-        ],
+        items: navbarItems(user),
         currentIndex: pageIndex,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
@@ -142,5 +112,39 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  List<BottomNavigationBarItem> navbarItems(FirebaseUser user) {
+    return [
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.home,
+            color: pageIndex == 0 ? Colors.black : Colors.grey,
+          ),
+          title: Container(height: 0.0),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.fitness_center,
+            color: pageIndex == 1 ? Colors.black : Colors.grey,
+          ),
+          title: Container(height: 0.0),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.chat,
+            color: pageIndex == 2 ? Colors.black : Colors.grey,
+          ),
+          title: Container(height: 0.0),
+        ),
+        BottomNavigationBarItem(
+          icon: createUserCircleInNavBar(
+            user: user,
+            currentPageIndex: pageIndex,
+            iconIndex: 3
+          ),
+          title: Container(height: 0.0),
+        )
+      ];
   }
 }
