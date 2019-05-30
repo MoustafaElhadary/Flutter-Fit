@@ -6,7 +6,7 @@ class createUserCircleInNavBar extends StatelessWidget {
   final FirebaseUser user;
   final int currentPageIndex;
   final int iconIndex;
-  createUserCircleInNavBar({Key key, this.user, this.currentPageIndex, this.iconIndex);
+  createUserCircleInNavBar({Key key, this.user, this.currentPageIndex, this.iconIndex});
   @override
   Widget build(BuildContext context) {
     return (user == null || user.photoUrl == null)
