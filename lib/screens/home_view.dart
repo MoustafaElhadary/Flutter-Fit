@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
     return Scaffold(
-      drawer: TopicDrawer(topics: _topics),
+      drawer: CustomDrawer(topics: _topics),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         brightness: Brightness.light,
@@ -141,42 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
-    );
-  }
-}
-
-class TopicDrawer extends StatelessWidget {
-  final List<Topic> topics;
-  TopicDrawer({Key key, this.topics});
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView.separated(
-          shrinkWrap: true,
-          itemCount: topics.length,
-          itemBuilder: (BuildContext context, int idx) {
-            Topic topic = topics[idx];
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 10, left: 10),
-                  child: Text(
-                    topic.title,
-                    // textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                QuizList(topic: topic)
-              ],
-            );
-          },
-          separatorBuilder: (BuildContext context, int idx) => Divider()),
     );
   }
 }
