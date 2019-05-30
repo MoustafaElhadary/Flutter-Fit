@@ -54,6 +54,12 @@ class QuizScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: AnimatedProgressbar(value: state.progress),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                brightness: Brightness.light,
+                iconTheme: IconThemeData(
+                  color: Colors.black,
+                ),
                 leading: IconButton(
                   icon: Icon(FontAwesomeIcons.times),
                   onPressed: () => Navigator.pop(context),

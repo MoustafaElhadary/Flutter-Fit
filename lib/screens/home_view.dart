@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:quizapp/models/models.dart';
 import 'package:quizapp/services/services.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:quizapp/shared/UI_widgets.dart';
 
 import 'screens.dart';
 
@@ -18,11 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
   int pageIndex = 0;
   String pageName = "";
 
-  List<Topic> _topics = new List<Topic>();
-  final TopicsScreen _topicScreen = new TopicsScreen();
-  final ProfileScreen _profileScreen = new ProfileScreen();
-  final WorkoutsScreen _workoutsScreen = new WorkoutsScreen();
-  final NotificationsView _notificationsView = new NotificationsView();
+  List<Topic> _topics = List<Topic>();
+  final TopicsScreen _topicScreen = TopicsScreen();
+  final ProfileScreen _profileScreen = ProfileScreen();
+  final WorkoutsScreen _workoutsScreen = WorkoutsScreen();
+  final NotificationsView _notificationsView = NotificationsView();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   @override
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _firebaseMessaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
-    new Future.delayed(Duration.zero, () {
+    Future.delayed(Duration.zero, () {
       Messages messages = Global.messages;
       _firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
@@ -70,71 +71,67 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
 
       default:
-        return new Container(
-          child: new Center(
-              child: new Text('No page found by page chooser.',
-                  style: new TextStyle(fontSize: 30.0))),
+        return Container(
+          child: Center(
+              child: Text('No page found by page chooser.',
+                  style: TextStyle(fontSize: 30.0))),
         );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    
     FirebaseUser user = Provider.of<FirebaseUser>(context);
-
     Global.topicsRef.getData().then((topics) {
       setState(() {
         _topics = topics;
       });
     });
-    return new Scaffold(
+    return Scaffold(
+      drawer: TopicDrawer(topics: _topics),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        brightness: Brightness.light,
         elevation: 0,
-        title: Text(pageName ?? "", style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                color: Colors.black),),
+        title: Text(
+          pageName ?? "",
+          style: Theme.of(context).textTheme.headline,
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
       ),
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-         value: SystemUiOverlayStyle.light,                
-         child: pageChooser(),
-      ),
-      drawer: new TopicDrawer(topics: _topics),
-      bottomNavigationBar: new BottomNavigationBar(
+      body: pageChooser(),
+      bottomNavigationBar: BottomNavigationBar(
         items: [
-          new BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text('Home'),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: pageIndex == 0 ? Colors.black : Colors.grey,
+            ),
+            title: Container(height: 0.0),
           ),
-        
-          new BottomNavigationBarItem(
-            icon: new Icon(Icons.fitness_center),
-            title: new Text('Workout'),
-          ),new BottomNavigationBarItem(
-            icon: new Icon(Icons.chat),
-            title: new Text('Chat'),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.fitness_center,
+              color: pageIndex == 1 ? Colors.black : Colors.grey,
+            ),
+            title: Container(height: 0.0),
           ),
-          new BottomNavigationBarItem(
-            icon: (user == null || user.photoUrl == null)
-                ? Icon(
-                    FontAwesomeIcons.userCircle,
-                  )
-                : Container(
-                    width: 35,
-                    height: 35,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(blurRadius: pageIndex == 1 ? 3 : 0)
-                      ],
-                      image: DecorationImage(
-                        image: NetworkImage(user.photoUrl),
-                      ),
-                    ),
-                  ),
-            title: new Text('Me'),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+              color: pageIndex == 2 ? Colors.black : Colors.grey,
+            ),
+            title: Container(height: 0.0),
+          ),
+          BottomNavigationBarItem(
+            icon: createUserCircleInNavBar(
+              user: user,
+              currentPageIndex: pageIndex,
+              iconIndex: 3
+            ),
+            title: Container(height: 0.0),
           )
         ],
         currentIndex: pageIndex,

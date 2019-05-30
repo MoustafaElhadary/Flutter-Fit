@@ -2,27 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:quizapp/screens/screens.dart';
 import 'models/models.dart';
 import 'services/services.dart';
 import 'screens/screens.dart';
 import 'package:provider/provider.dart';
 
-void main() 
-{
-    SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.white, //top bar color
-      statusBarIconBrightness: Brightness.dark, //top bar icons
-      systemNavigationBarColor: Colors.white, //bottom bar color
-      systemNavigationBarIconBrightness: Brightness.dark, //bottom bar icons
-    )
-  );
-  SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-      .then((_) => runApp(new MyApp()));
-  } 
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -31,7 +17,9 @@ class MyApp extends StatelessWidget {
       providers: [
         StreamProvider<Report>.value(stream: Global.reportRef.documentStream),
         StreamProvider<FirebaseUser>.value(stream: AuthService().user),
-        ChangeNotifierProvider<Messages>.value(notifier: Global.messages,),
+        ChangeNotifierProvider<Messages>.value(
+          notifier: Global.messages,
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -56,11 +44,24 @@ class MyApp extends StatelessWidget {
           ),
           brightness: Brightness.light,
           textTheme: TextTheme(
-            body1: TextStyle(fontSize: 18),
-            body2: TextStyle(fontSize: 16),
-            button: TextStyle(letterSpacing: 1.5, fontWeight: FontWeight.bold),
-            headline: TextStyle(fontWeight: FontWeight.bold),
-            subhead: TextStyle(color: Colors.grey),
+            body1: TextStyle(
+              fontFamily: 'Montserrat',
+              fontSize: 18,
+            ),
+            body2: TextStyle(
+              fontFamily: 'Montserrat',
+              fontSize: 16,
+            ),
+            button: TextStyle(
+              fontFamily: 'Montserrat',
+              letterSpacing: 1.5,
+              fontWeight: FontWeight.bold,
+            ),
+            headline: TextStyle(
+                fontFamily: 'Montserrat',
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
+            subhead: TextStyle(fontFamily: 'Montserrat', color: Colors.grey),
           ),
           buttonTheme: ButtonThemeData(),
         ),

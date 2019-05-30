@@ -123,8 +123,14 @@ class TopicScreen extends StatelessWidget {
       appBar: AppBar(
           title: Text(
             topic.title,
+            style: Theme.of(context).textTheme.title,
           ),
-          backgroundColor: Colors.deepOrange),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          brightness: Brightness.light,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          )),
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
