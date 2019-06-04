@@ -1,4 +1,4 @@
-# quizapp
+# Flutter Fit
 
 A new Flutter project.
 
