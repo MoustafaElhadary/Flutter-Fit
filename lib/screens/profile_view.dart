@@ -4,6 +4,7 @@ import 'package:quizapp/models/models.dart';
 import 'package:quizapp/screens/screens.dart';
 import '../services/services.dart';
 import '../shared/shared.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessPageBase {
@@ -34,16 +35,24 @@ class ProfileScreen extends StatelessPageBase {
                   image: DecorationImage(
                     image: NetworkImage(user.photoUrl),
                   ),
-                ), 
+                ),
               ),
             Text(user.email ?? '', style: Theme.of(context).textTheme.headline),
-            Spacer(),
+            Container(
+              width: 300,
+              height: 300,
+                child: AspectRatio(
+              child: FlareActor(
+                'assets/Success.flr',
+                animation: 'check-success',
+              ),
+              aspectRatio: 1,
+            )),
             if (report != null)
               Text('${report.total ?? 0}',
                   style: Theme.of(context).textTheme.display3),
             Text('Quizzes Completed',
                 style: Theme.of(context).textTheme.subhead),
-            Spacer(),
             FlatButton(
                 child: Text('logout'),
                 color: Colors.red,
@@ -52,7 +61,6 @@ class ProfileScreen extends StatelessPageBase {
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil('/', (route) => false);
                 }),
-            Spacer()
           ],
         ),
       );

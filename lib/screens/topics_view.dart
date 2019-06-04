@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quizapp/models/models.dart';
@@ -79,8 +80,11 @@ class TopicItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.network(
-                  '${topic.img}',
+                CachedNetworkImage(
+                  imageUrl: '${topic.img}',
+                  placeholder: (context, url) =>
+                      new CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
                   fit: BoxFit.contain,
                 ),
                 Row(
@@ -135,21 +139,24 @@ class TopicScreen extends StatelessWidget {
         scrollDirection: Axis.vertical,
         children: [
           Hero(
-            tag: topic.img,
-            flightShuttleBuilder: (
-              BuildContext flightContext,
-              Animation<double> animation,
-              HeroFlightDirection flightDirection,
-              BuildContext fromHeroContext,
-              BuildContext toHeroContext,
-            ) {
-              return SingleChildScrollView(
-                child: fromHeroContext.widget,
-              );
-            },
-            child: Image.network('${topic.img}',
-                width: MediaQuery.of(context).size.width),
-          ),
+              tag: topic.img,
+              flightShuttleBuilder: (
+                BuildContext flightContext,
+                Animation<double> animation,
+                HeroFlightDirection flightDirection,
+                BuildContext fromHeroContext,
+                BuildContext toHeroContext,
+              ) {
+                return SingleChildScrollView(
+                  child: fromHeroContext.widget,
+                );
+              },
+              child: CachedNetworkImage(
+                imageUrl: '${topic.img}',
+                placeholder: (context, url) => new CircularProgressIndicator(),
+                errorWidget: (context, url, error) => new Icon(Icons.error),
+                width: MediaQuery.of(context).size.width,
+              )),
           Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Text(
